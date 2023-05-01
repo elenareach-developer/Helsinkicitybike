@@ -1,0 +1,19 @@
+{
+  "name": "helsinkicitybike",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elenareach-developer/Helsinkicitibike.git"
+  },
+  "author": "elena",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elenareach-developer/Helsinkicitibike/issues"
+  },
+  "homepage": "https://github.com/elenareach-developer/Helsinkicitibike#readme"
+}
