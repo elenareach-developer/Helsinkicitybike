@@ -1,13 +1,17 @@
 let {data, addData} = require('../tempData/data');
+const asyncHandler = require('express-async-handler');
+
+const Message = require('../models/messagesModel')
 
 // @desc GEt Stations info
 // @route GET/api/stations
 // @access Private
-const getStations = (req, res) => {
-        res.send(data)
-}
+const getStations = asyncHandler(async (req, res) => {
+        const messages = await Message.find();
+        res.send(messages)
+})
 
-const paginationsStations =  (req, res) => {
+const paginationsStations =  asyncHandler(async (req, res) => {
     let start = req.params.start
     let perPage = req.params.perPage
     let end =  start+perPage-1
@@ -16,12 +20,20 @@ const paginationsStations =  (req, res) => {
      }
      //res.send(end)
     res.send(data.slice(start,end))
-}
+})
 
-const postStations = (req, res) => {
-    consolr.log(req.body)
-    res.status(200).jason({message: 'Stations'})
-}
+const postStations = asyncHandler(async (req, res) => {
+    //console.log(req.body)
+    if(!req.body.text){
+        //res.status(400).json({message:"Text field is reqired"})
+        res.status(400)
+        throw new Error("Text field is reqired");
+    }
+    const messages = await Message.create({
+        text: req.body.text
+    })
+    res.status(200).json(messages)
+})
 
 const getStationById = (req, res) => {
     let id = req.params.id
