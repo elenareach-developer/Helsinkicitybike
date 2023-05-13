@@ -2,24 +2,26 @@
 const mongoose = require('mongoose');
 
 const stationModel = mongoose.Schema({
-    id_fin:{
+    fid:{
         type: Number,
-        required: [true, "Pls add text value"]
+        required: [true, "Pls add fid value"]
     },
-    name_id:{
+    id:{
         type: Number,
-        required: [true, "Pls add text value"]
+        required: [true, "Pls add id value"] 
     },
-    company_id:{
+    Name:{
         type: String
     },
-    location: {
-        type: {
-          type: String,
-          default: 'Point',
-        },
-        coordinates: [Number], //[longitude, latitude]
-      }
+    Address:{
+        type: String
+    },
+    x:{
+        type: String
+    },
+    y:{
+        type: String 
+    }   
 }, {
     timepstamps: true,
 })

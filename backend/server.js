@@ -11,8 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 app.use(errorHandler)
       
-app.use('/api/station/',require('./routes/stationsRoutes'))
-app.use('/api/company/',require('./routes/companyRoutes'))
+app.use('/api/stations/',require('./routes/stationsRoutes'))
 
 
 

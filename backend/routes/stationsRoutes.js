@@ -1,24 +1,17 @@
 
-let {data, addData} = require("../tempData/data")
 const express = require('express');
 const router = express.Router();
 
 
 
-const {getStations, updateStation, postStations, getStationById, paginationsStations, deletStationbyId} = require("../controllers/stationController")
+const {getStation, getStationByIdFin, createOrUpdateStation} = require("../controllers/stationController")
 
 
 
-router.get('/', getStations);
+router.get('/', getStation);
 
-router.get('/:id', getStationById)
+router.post('/', createOrUpdateStation);
 
-router.get('/list/:start&:perPage', paginationsStations)
-
-router.delete('/:id', deletStationbyId)
-
-router.post("/post", postStations)
-
-router.put('/', updateStation)
+router.get('/:fid', getStationByIdFin)
 
 module.exports = router
