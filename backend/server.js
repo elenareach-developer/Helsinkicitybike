@@ -12,6 +12,8 @@ app.use(express.urlencoded({extended: false}))
 app.use(errorHandler)
       
 app.use('/api/stations/',require('./routes/stationsRoutes'))
+app.use('/api/journey/',require('./routes/journeyRoutes'))
+app.use('/api/journeyStatistic/',require('./routes/journeyStatisticRoutes'))
 
 
 

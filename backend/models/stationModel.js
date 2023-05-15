@@ -21,7 +21,13 @@ const stationModel = mongoose.Schema({
     },
     y:{
         type: String 
-    }   
+    } ,
+    total_journeys_starting:{
+        type: Number
+    } ,
+    total_journeys_ending:{
+        type: Number
+    }  
 }, {
     timepstamps: true,
 })
