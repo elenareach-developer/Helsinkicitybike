@@ -80,15 +80,15 @@ const createOrUpdateStation = asyncHandler(async (req, res) => {
 // @desc GEt Station record by Id
 // @route GET/api/Station/:id
 // @access Private
-const getStationByIdFin = asyncHandler(async (req, res) => {
+const getStationByIdFID = asyncHandler(async (req, res) => {
     console.log(req.params)
-    const station = await Station.find({FID: req.params.FID})
+    const station = await Station.find({fid: req.params.fid})
     res.status(200).json(station)
 })
 
 module.exports = {
     getStation,
     createOrUpdateStation,
-    getStationByIdFin,
+    getStationByIdFID,
     getStationListWithSort
 }

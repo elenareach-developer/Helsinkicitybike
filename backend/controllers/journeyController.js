@@ -21,6 +21,7 @@ const getJourneysListWithSort = asyncHandler(async (req, res) => {
                     {$skip: skip },
                     {$limit: limit }]
                     );  
+        console.log(journey)
         res.send(journey)
 })
 

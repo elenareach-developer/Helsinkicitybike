@@ -1,12 +1,17 @@
 {
+  "proxy": "http://localhost:8000",
   "name": "helsinkicitybike",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "scripts": {
-    "start": "node backend/server.js",
-    "server": "nodemon backend/server.js"
-  },
+
+    "scripts": {
+      "start": "node backend/server.js",
+      "server": "nodemon backend/server.js",
+      "client": "cd client && npm run start",
+      "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    },
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/elenareach-developer/Helsinkicitibike.git"
