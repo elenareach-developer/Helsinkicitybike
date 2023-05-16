@@ -67,7 +67,7 @@ const createOrUpdateStation = asyncHandler(async (req, res) => {
              total_journeys_ending: 0
         }
         console.log(newStation)
-    const myquery = { fid: req.body.FID, };
+    const myquery = { fid: req.body.fid, };
     const newvalues = { $set: newStation };
     const options = { upsert: true };
     const stations = await Station.updateOne(myquery, newvalues, options)
