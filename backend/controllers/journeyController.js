@@ -41,6 +41,18 @@ const createJourney = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error("Covered_distance or Duration less than 10 ");
      }
+     //check if the departute stations and retuen stations are in StationList if not found the journeywould not count
+     let StationDeparture = await Station.find({"fid": req.body.Departure_station_id});
+     if(!StationDeparture[0].fid){
+            res.status(400)
+            throw new Error("No Station with ID " + req.body.Departure_station_id)        
+     }
+     let StationReturn = await Station.find({"fid": req.body.Return_station_id});
+     if(!StationReturn[0].fid){
+        res.status(400)
+        throw new Error("No Station with ID " + req.body.Return_station_id)        
+    }
+    
      
     const newJourney = {
             Departure: req.body.Departure,
@@ -55,7 +67,7 @@ const createJourney = asyncHandler(async (req, res) => {
         const newvalues = { $set: newJourney };
         const options = { upsert: true };
         const journeys = await Journey.updateOne(newJourney, newvalues, options)
-
+console.log(journeys)
         //Add or update Record in JourneyStatistic
 
     const date = new Date(req.body.Return)
@@ -72,24 +84,15 @@ const createJourney = asyncHandler(async (req, res) => {
         }
      const stat = await JourneyStatistic.updateOne(findStatistic, {$set: statistic}, options)
 
-    // update the total number of return and departure from stations
+    // update the total number of return and departure  in stations reconrds
     const notCreate  = { upsert: false };
-    let StationDeparture = await Station.find({"fid": req.body.Departure_station_id});
-    if(StationDeparture[0]?.fid){
-            let total_journeys_starting = Number(StationDeparture[0].total_journeys_starting) + 1;
-            StationDeparture =  await Station.updateOne({"fid": req.body.Departure_station_id}, {$set: {"total_journeys_starting":total_journeys_starting}}, options)
-    }else{
-        res.status(400)
-        throw new Error("No Station with ID " + req.body.Departure_station_id)
-    }
-    let StationReturn = await Station.find({"fid": req.body.Return_station_id});
-    if(StationReturn[0]?.fid){
-            let total_journeys_ending = Number(StationReturn[0].total_journeys_ending) + 1;
-            StationReturn =  await Station.updateOne({"fid": req.body.Return_station_id}, {$set: {"total_journeys_ending":total_journeys_ending}}, notCreate)
-    }else{
-        res.status(400)
-        throw new Error("No Station with ID " + req.body.Return_station_id)
-    }
+    const total_journeys_starting = Number(StationDeparture[0].total_journeys_starting) + 1;
+    StationDeparture =  await Station.updateOne({"fid": req.body.Departure_station_id}, {$set: {"total_journeys_starting":total_journeys_starting}}, options)
+    
+
+    const total_journeys_ending = Number(StationReturn[0].total_journeys_ending) + 1;
+    StationReturn =  await Station.updateOne({"fid": req.body.Return_station_id}, {$set: {"total_journeys_ending":total_journeys_ending}}, notCreate)
+    
 
     res.status(200).json(StationReturn)
 })
