@@ -1,21 +1,42 @@
 import logo from './logo.svg';
 import './App.css';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
+import Dashboard from './components/dashboard/Dashboard'
 
 function App() {
-  useEffect(()=>{
-    fetch('/api/stations/',{
-     method:"GET",
-     mode: 'no-cors'
-    },[])
-  .then(res => res.json())
-  .then(data => console.log(data))
-  .catch(error => console.error(error));
-  })
+  
+  const [advice, setAdvice] = useState([]);
+
+    useEffect(() => {
+        const url = "/api/stations/";
+        let method = "GET";
+
+        const fetchData = async (url, method) => {
+            try {
+                const response = await fetch(url,{
+                      method: method,
+                      mode: 'no-cors'
+                })
+                const json = await response.json();
+                console.log(json);
+                setAdvice(json);
+            } catch (error) {
+                console.log("error", error);
+            }
+        };
+
+        fetchData(url, method);
+      }, []);
   return (
     <div className="App">
-     <h1>{title}</h1>
-        
+    
+     {advice.map(el=>{
+      let str 
+        for(const key in el){
+          str = str + key + ":" + el[key]
+        }
+        return str
+     })}
     </div>
   );
 }
