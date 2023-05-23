@@ -1,21 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
-import React, {useEffect} from 'react';
+import React from 'react';
+import Dashboard from './components/dashboard/Dashboard'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-  useEffect(()=>{
-    fetch('/api/stations/',{
-     method:"GET",
-     mode: 'no-cors'
-    },[])
-  .then(res => res.json())
-  .then(data => console.log(data))
-  .catch(error => console.error(error));
-  })
+  
+  
   return (
     <div className="App">
-     <h1>{title}</h1>
-        
+      <BrowserRouter>
+              <Routes>
+                <Route path="/" element={ <Dashboard />}>
+                  <Route path="/stations" element={ <Dashboard view="SortOrders"/>} />
+                  <Route path="/journey" element={ <Dashboard view="Orders"/>} />
+                </Route>
+              </Routes>
+          </BrowserRouter>
+  
     </div>
   );
 }
