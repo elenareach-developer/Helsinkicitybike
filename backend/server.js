@@ -15,6 +15,7 @@ app.use('/api/stations/',require('./routes/stationsRoutes'))
 app.use('/api/journey/',require('./routes/journeyRoutes'))
 app.use('/api/journeyStatistic/',require('./routes/journeyStatisticRoutes'))
 
-
+const csvRoute = require("./routes/csvRoutes")
+app.use("/api/uploadCsv", csvRoute)
 
 app.listen(port, ()=>console.log(`Starting server on port ${port}`));

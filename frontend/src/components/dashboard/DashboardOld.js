@@ -18,13 +18,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
-import SortOrders from "./SortOrders";
-import Orders from "./Orders";
-import Chart from "./Chart";
-
-
-
-
+import Chart from './Chart';
+import Deposits from './Deposits';
+import Orders from './Orders';
+import SortOrders from './SortOrders';
 
 
 function Copyright(props) {
@@ -89,36 +86,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-const SwitchView=(view)=>{
-  console.log("view")
-  console.log(view)
-  switch(view) {
-    case "SortOrders":
-      return <><SortOrders /></>
-      break;
-    case "Orders":
-        return <><Orders /></>
-      break;
-    case "Chart":
-        return <><Chart /></>
-        break;
-    default:
-      return <><Chart /></>
-  }
-  
-  
-
-}
-export default function Dashboard(props) {
+export default function Dashboard() {
   const [open, setOpen] = React.useState(true);
-  const [view, setView] = React.useState("SortOrders");
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  React.useEffect(()=>{
-    console.log("view")
-    console.log(view)
-  })
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -192,14 +164,42 @@ export default function Dashboard(props) {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-              
-             { SwitchView(view)}
-            
-
-
+            <Grid container spacing={3}>
+              {/* Chart */}
+              <Grid item xs={12} md={8} lg={9}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 240,
+                  }}
+                >
+                  <Chart />
+                </Paper>
+              </Grid>
+              {/* Recent Deposits */}
+              <Grid item xs={12} md={4} lg={3}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 240,
+                  }}
+                >
+                  <Deposits />
+                </Paper>
+              </Grid>
+              {/* Recent SortOrders */}
+              <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                  <SortOrders />
+                </Paper>
+              </Grid>
+            </Grid>
+            <Copyright sx={{ pt: 4 }} />
           </Container>
-           
-          <Copyright sx={{ pt: 4 }} />
         </Box>
       </Box>
     </ThemeProvider>

@@ -1,42 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Dashboard from './components/dashboard/Dashboard'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   
-  const [advice, setAdvice] = useState([]);
-
-    useEffect(() => {
-        const url = "/api/stations/";
-        let method = "GET";
-
-        const fetchData = async (url, method) => {
-            try {
-                const response = await fetch(url,{
-                      method: method,
-                      mode: 'no-cors'
-                })
-                const json = await response.json();
-                console.log(json);
-                setAdvice(json);
-            } catch (error) {
-                console.log("error", error);
-            }
-        };
-
-        fetchData(url, method);
-      }, []);
+  
   return (
     <div className="App">
-    
-     {advice.map(el=>{
-      let str 
-        for(const key in el){
-          str = str + key + ":" + el[key]
-        }
-        return str
-     })}
+      <BrowserRouter>
+              <Routes>
+                <Route path="/" element={ <Dashboard />}>
+                  <Route path="/stations" element={ <Dashboard view="SortOrders"/>} />
+                  <Route path="/journey" element={ <Dashboard view="Orders"/>} />
+                </Route>
+              </Routes>
+          </BrowserRouter>
+  
     </div>
   );
 }
