@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/Helsinkicitybike/precache-manifest.881df84017baf5571adb706d17020815.js"
+  "/Helsinkicitybike/precache-manifest.c7dcfa0021156ad86f985eb825939419.js"
 );
 
 workbox.clientsClaim();
